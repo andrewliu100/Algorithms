@@ -1,2 +1,2 @@
 # Algorithms
-Algorithms and test cases to test the algorithm
+JAVA implementation of various algorithms and unit tests
