@@ -35,9 +35,9 @@ public class QuickSort <E extends Comparable<E>> {
 	private void quickSort(E[] array, int low, int high) {
 		
 		if (low < high) {
-			int mid = split(array, low, high);
-			quickSort(array, low, mid - 1);
-			quickSort(array, mid + 1, high);
+			int w = split(array, low, high);
+			quickSort(array, low, w - 1);
+			quickSort(array, w + 1, high);
 		}
 	}
 	
