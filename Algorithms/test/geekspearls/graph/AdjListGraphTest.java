@@ -1,7 +1,5 @@
 package geekspearls.graph;
 
-import geekspearls.graph.entity.AdjListGraph;
-import geekspearls.graph.entity.Graph;
 import geekspearls.graph.entity.GraphType;
 import geekspearls.graph.entity.Vertex;
 import org.testng.annotations.Test;

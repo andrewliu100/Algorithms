@@ -14,5 +14,5 @@ JAVA implementation of various algorithms and unit tests.
 
 ### Graph
     Adjacency List - geekspearls.graph.AdjListGraph
-    Adjacency Matrix - geekspearls.graph.AdjMatrixGraphTest
+    Adjacency Matrix - geekspearls.graph.AdjMatrixGraph
     

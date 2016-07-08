@@ -1,4 +1,6 @@
-package geekspearls.graph.entity;
+package geekspearls.graph;
+
+import geekspearls.graph.entity.Vertex;
 
 /**
  * Created by aliu on 7/07/16.

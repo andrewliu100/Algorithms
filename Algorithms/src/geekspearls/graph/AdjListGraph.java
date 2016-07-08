@@ -1,4 +1,7 @@
-package geekspearls.graph.entity;
+package geekspearls.graph;
+
+import geekspearls.graph.entity.GraphType;
+import geekspearls.graph.entity.Vertex;
 
 import java.util.LinkedList;
 import java.util.Set;
