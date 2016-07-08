@@ -3,12 +3,16 @@ JAVA implementation of various algorithms and unit tests.
 
 ## Available algorithms:
 ### Sorting
-    Selection sort - geekspearls.sorting.SelectionSort.java
-    Insertion sort - geekspearls.sorting.InsertionSort.java
-    Merge sort - geekspearls.sorting.MergeSort.java
-    Quick sort - geekspearls.sorting.QuickSort.java
-    Heap sort - geekspearls.sorting.HeapSort.java
+    Selection sort - geekspearls.sorting.SelectionSort
+    Insertion sort - geekspearls.sorting.InsertionSort
+    Merge sort - geekspearls.sorting.MergeSort
+    Quick sort - geekspearls.sorting.QuickSort
+    Heap sort - geekspearls.sorting.HeapSort
 
 ### Dynamic Programming
-    Longest Common Subsequence - geekspearls.dp.Lcs.java
+    Longest Common Subsequence - geekspearls.dp.Lcs
+
+### Graph
+    Adjacency List - geekspearls.graph.AdjListGraph
+    Adjacency Matrix - geekspearls.graph.AdjMatrixGraphTest
     
