@@ -11,6 +11,9 @@ JAVA implementation of various algorithms and unit tests.
 
 ### Dynamic Programming
     Longest Common Subsequence - geekspearls.dp.Lcs
+    
+### Tree
+    Binary Search Tree - geekspearls.tree.BST
 
 ### Graph
     Adjacency List - geekspearls.graph.AdjListGraph
