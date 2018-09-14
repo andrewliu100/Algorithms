@@ -67,4 +67,23 @@ public class AdjListGraphTest {
         directedAdjList.print();
     }
 
+    @Test
+    public void testBFS() {
+        List<Vertex> vertices = new ArrayList<>();
+        vertices.add(new Vertex(0)); // dummy vertex
+        for (int x = 1; x <= 6; x++) {
+            vertices.add(new Vertex(x));
+        }
+        Graph directedAdjList = new AdjListGraph(new HashSet<>(vertices), GraphType.DIRECTED);
+        directedAdjList.addEdge(vertices.get(1), vertices.get(2));
+        directedAdjList.addEdge(vertices.get(1), vertices.get(4));
+        directedAdjList.addEdge(vertices.get(2), vertices.get(5));
+        directedAdjList.addEdge(vertices.get(3), vertices.get(6));
+        directedAdjList.addEdge(vertices.get(3), vertices.get(5));
+        directedAdjList.addEdge(vertices.get(4), vertices.get(2));
+        directedAdjList.addEdge(vertices.get(5), vertices.get(4));
+        directedAdjList.addEdge(vertices.get(6), vertices.get(6));
+        directedAdjList.bfs(vertices.get(1));
+    }
+
 }

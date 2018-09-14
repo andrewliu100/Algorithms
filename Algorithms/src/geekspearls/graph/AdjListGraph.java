@@ -4,7 +4,9 @@ import geekspearls.graph.entity.GraphType;
 import geekspearls.graph.entity.Vertex;
 
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * Adjacency list representation of graph.
@@ -55,6 +57,56 @@ public class AdjListGraph implements Graph {
                 System.out.print(v.getValue() + "->");
             }
             System.out.println();
+        }
+    }
+
+    @Override
+    public void bfs(Vertex vertex) {
+        Queue<Vertex> queue = new LinkedList<>();
+        queue.offer(vertex);
+        vertex.setVisited(true);
+        while (!queue.isEmpty()) {
+            Vertex v = queue.poll();
+            System.out.print(v.getValue() + ", ");
+            for (Vertex neighbour : adj[v.getValue()]) {
+                if (!neighbour.isVisited()) {
+                    queue.offer(neighbour);
+                    neighbour.setVisited(true);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void dfs(Vertex vertex, boolean iterative) {
+        if (iterative) {
+            dfsIterative(vertex);
+        } else {
+            dfsRecursive(vertex);
+        }
+    }
+
+    private void dfsIterative(Vertex vertex) {
+        Stack<Vertex> stack = new Stack<>();
+        stack.push(vertex);
+        vertex.setVisited(true);
+        while (!stack.isEmpty()) {
+            Vertex v = stack.pop();
+            System.out.print(v.getValue() + ", ");
+            for (Vertex neighbour : adj[v.getValue()]) {
+                if (!neighbour.isVisited()) {
+                    stack.push(neighbour);
+                    neighbour.setVisited(true);
+                }
+            }
+        }
+    }
+
+    private void dfsRecursive(Vertex vertex) {
+        vertex.setVisited(true);
+        System.out.print(vertex.getValue() + ", ");
+        for (Vertex neighbour : adj[vertex.getValue()]) {
+            dfsRecursive(neighbour);
         }
     }
 }

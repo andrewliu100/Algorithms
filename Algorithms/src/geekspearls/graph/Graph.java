@@ -13,4 +13,14 @@ public interface Graph {
      * Print the graph structure.
      */
     public void print();
+
+    /**
+     * Breath First search.
+     */
+    public void bfs(Vertex vertex);
+
+    /**
+     * Depth First search.
+     */
+    public void dfs(Vertex vertex, boolean iterative);
 }

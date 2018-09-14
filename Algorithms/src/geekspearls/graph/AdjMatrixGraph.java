@@ -2,7 +2,11 @@ package geekspearls.graph;
 
 import geekspearls.graph.entity.GraphType;
 import geekspearls.graph.entity.Vertex;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 /**
@@ -47,5 +51,46 @@ public class AdjMatrixGraph implements Graph {
             }
             System.out.println();
         }
+    }
+
+    @Override
+    public void bfs(Vertex v) {
+        Queue<Vertex> queue = new LinkedList<>();
+        queue.offer(v);
+        v.setVisited(true);
+        while (!queue.isEmpty()) {
+            Vertex ver = queue.poll();
+            System.out.print(ver.getValue() + ", ");
+            for (Vertex neighbour : neighbours(ver)) {
+                if (!neighbour.isVisited()) {
+                    queue.offer(neighbour);
+                    neighbour.setVisited(true);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void dfs(Vertex vertex, boolean iterative) {
+        throw new NotImplementedException();
+    }
+
+    private Set<Vertex> neighbours(Vertex v) {
+        Set<Vertex> neighbours = new HashSet<>();
+        for (int i = 1; i < adj.length; i++) {
+            if (adj[v.getValue()][i]) {
+                neighbours.add(getVertex(i));
+            }
+        }
+        return neighbours;
+    }
+
+    private Vertex getVertex(int value) {
+        for (Vertex v: V) {
+            if (v.getValue() == value) {
+                return v;
+            }
+        }
+        return null;
     }
 }

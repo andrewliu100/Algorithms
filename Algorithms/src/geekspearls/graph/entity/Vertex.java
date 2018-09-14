@@ -7,11 +7,24 @@ public class Vertex {
 
     private int value;
 
+    /**
+     * Flag if the vertex is already visited
+     */
+    private boolean visited;
+
     public Vertex(int value) {
         this.value = value;
     }
 
     public int getValue() {
         return this.value;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 }

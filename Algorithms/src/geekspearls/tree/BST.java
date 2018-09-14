@@ -10,7 +10,7 @@ import java.util.Queue;
  */
 public class BST {
 
-    private Node root;
+    protected Node root;
 
     /**
      * Find the node of the given value.
@@ -33,6 +33,29 @@ public class BST {
         return null;
     }
 
+    /**
+     * Recursion implementation of insert a new node to BST.
+     *
+     * @param node The node under which to insert
+     * @param value The value of the node
+     */
+    public Node insert(Node node, int value) {
+        if (node == null) {
+            return new Node(value);
+        }
+        if (value < node.value) {
+            node.left = insert(node.left, value);
+        } else {
+            node.right = insert(node.right, value);
+        }
+        return node;
+    }
+
+    /**
+     * Iteration implementation of insert a new node to BST.
+     *
+     * @param value The value of the node.
+     */
     public void insert(int value) {
         Node n = new Node(value);
         if (root == null) {
