@@ -19,6 +19,17 @@ public class BSTTest {
     }
 
     @Test
+    public void testCreateBSTRecur() {
+        int values[] = {2, 33, 65 ,10, 8, 21, 4, 6};
+        BST bst = new BST();
+        bst.root = new Node(2);
+        for (int i = 1; i < values.length; i++) {
+            bst.insert(bst.root, values[i]);
+        }
+        bst.dfsInOrder();
+    }
+
+    @Test
     public void testFind() {
         int values[] = {2, 33, 65 ,10, 8, 21, 4, 6};
         BST bst = new BST();
