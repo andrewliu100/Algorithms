@@ -69,4 +69,15 @@ public class BSTTest {
         bst.bfs();
     }
 
+    @Test
+    public void testDistance() {
+        int values[] = {10, 12,1,11,20,8,5, 9};
+        BST bst = new BST();
+        for (int value : values) {
+            bst.insert(value);
+        }
+        Assert.assertEquals(bst.distance(bst.root, 1, 8), 1);
+        Assert.assertEquals(bst.distance(bst.root, 5, 11), 5);
+    }
+
 }

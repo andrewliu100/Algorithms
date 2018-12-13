@@ -82,6 +82,34 @@ public class BST {
         }
     }
 
+    public int distance(Node n, int a, int b) {
+        int small = a > b ? b : a;
+        int large = a > b ? a : b;
+
+        if (small <= n.value && large >= n.value) {
+            return level(n, small) + level(n, large);
+        } else if (large < n.value) { // both are smaller than n.value
+            return distance(n.left, a, b);
+        } else { // both are bigger than n.value
+            return distance(n.right, a, b);
+        }
+    }
+
+    private int level(Node n, int x) {
+        if (n == null) {
+            throw new IllegalArgumentException(x + " is not found in the BST");
+        }
+        if (n.value == x) {
+            return 0;
+        }
+
+        if (n.value > x) {
+            return level(n.left, x) + 1;
+        } else {
+            return level(n.right, x) + 1;
+        }
+    }
+
     /**
      *
      * @param value
@@ -153,7 +181,40 @@ public class BST {
         }
     }
 
+    /**
+     * Find the smallest node greater than the given node.
+     * And construct its left and right subtree.
+     *
+     * @param n
+     * @return
+     */
     private Node findSuccessor(Node n) {
+        Node p = null;
+        Node c = n.right;
+        while (c.left != null) {
+            p = c;
+            c = c.left;
+        }
+        // n's right node doesn't have left node
+        if (c == n.right) {
+            c.left = n.left;
+            return c;
+        }
+        // Give c its left and right sub trees
+        p.left = c.right;
+        c.left = n.left;
+        c.right = n.right;
+        return c;
+    }
+
+    /**
+     * Find the largest node less than the given node.
+     * And construct its left and right subtree.
+     *
+     * @param n
+     * @return
+     */
+    private Node findPredecessor(Node n) {
         Node p = null;
         Node c = n.left;
         while (c.right != null) {
