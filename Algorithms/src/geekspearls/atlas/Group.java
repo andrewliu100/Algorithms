@@ -15,6 +15,10 @@ public class Group {
         this.childGroups = new HashSet<>();
     }
 
+    public void addGroup(Group group) {
+        childGroups.add(group);
+    }
+
     public void addUser(User user) {
         this.users.add(user);
     }
