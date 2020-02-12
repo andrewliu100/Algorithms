@@ -1,10 +1,13 @@
 package geekspearls.atlas;
 
+import java.util.List;
 import java.util.Objects;
 
 public class User {
 
-    private int id;
+    int id;
+
+    List<Page> accessiblePages;
 
     public User(int id) {
         this.id = id;

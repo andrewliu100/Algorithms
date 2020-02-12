@@ -6,6 +6,11 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class GroupServiceTest {
 
@@ -79,6 +84,39 @@ public class GroupServiceTest {
 
         addThread.join();
         deleteThread.join();
+
+        // then
+        Assert.assertEquals(testGroup.getUserCount(), 0);
+    }
+
+    @Test
+    public void testExecutorServiceAddingDeletingUser() throws InterruptedException {
+        // given
+        Group testGroup = new Group(1);
+        User testUser = new User(1);
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+
+        // when
+        List<Callable<Void>> tasks = new ArrayList<>();
+        tasks.add(() -> {
+            groupService.addUserToGroup(testUser, testGroup);
+            return null;
+        });
+        tasks.add(() -> {
+            groupService.deleteUserFromGroup(testUser, testGroup);
+            return null;
+        });
+
+        List<Future<Void>> futures = executor.invokeAll(tasks);
+        try {
+            for (Future<Void> future : futures) {
+                future.get();
+            }
+        } catch (ExecutionException ex) {
+            // do nothing
+        }
+
+        executor.shutdown();
 
         // then
         Assert.assertEquals(testGroup.getUserCount(), 0);
