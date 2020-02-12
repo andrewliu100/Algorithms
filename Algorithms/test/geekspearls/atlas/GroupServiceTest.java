@@ -19,7 +19,7 @@ public class GroupServiceTest {
     @Test
     public void testDeleteUserBelongsToGroup() {
         // given
-        Group testGroup = groupService.createGroup();
+        Group testGroup = groupService.createGroup(1);
         User testUser = new User(1);
         groupService.addUserToGroup(testUser, testGroup);
 
@@ -33,7 +33,7 @@ public class GroupServiceTest {
     @Test
     public void testDeleteUserNotBelongsToGroup() {
         // given
-        Group testGroup = new Group();
+        Group testGroup = new Group(1);
         User testUser1 = new User(1);
         testGroup.addUser(testUser1);
         User testUser2 = new User(2);
@@ -48,7 +48,7 @@ public class GroupServiceTest {
     @Test
     public void testMultiThreadsAddingUser() throws InterruptedException {
         // given
-        Group testGroup = new Group();
+        Group testGroup = new Group(1);
         User testUser1 = new User(1);
         User testUser2 = new User(2);
 
@@ -68,7 +68,7 @@ public class GroupServiceTest {
     @Test
     public void testMultiThreadAddingDeletingUser() throws InterruptedException {
         // given
-        Group testGroup = new Group();
+        Group testGroup = new Group(1);
         User testUser = new User(1);
 
         // when
@@ -87,9 +87,9 @@ public class GroupServiceTest {
     @Test
     public void testHasCyclicGroup() {
         // given
-        Group group1 = new Group();
-        Group group2 = new Group();
-        Group group3 = new Group();
+        Group group1 = new Group(1);
+        Group group2 = new Group(2);
+        Group group3 = new Group(3);
         groupService.addGroupToGroup(group1, group2);
         groupService.addGroupToGroup(group2, group3);
         groupService.addGroupToGroup(group3, group2);
@@ -108,9 +108,9 @@ public class GroupServiceTest {
     @Test
     public void testNotHaveCyclicGroup() {
         // given
-        Group group1 = new Group();
-        Group group2 = new Group();
-        Group group3 = new Group();
+        Group group1 = new Group(1);
+        Group group2 = new Group(2);
+        Group group3 = new Group(3);
         groupService.addGroupToGroup(group1, group2);
         groupService.addGroupToGroup(group2, group3);
 

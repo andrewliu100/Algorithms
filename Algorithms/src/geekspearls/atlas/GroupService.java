@@ -7,10 +7,9 @@ public class GroupService {
 
     private List<Group> unprocessed = new ArrayList<>();
     private List<Group> inProcess = new ArrayList<>();
-    private List<Group> completed = new ArrayList<>();
 
-    public Group createGroup() {
-        return new Group();
+    public Group createGroup(Integer groupId) {
+        return new Group(groupId);
     }
 
     public void addGroupToGroup(Group parent, Group child) {
@@ -26,10 +25,27 @@ public class GroupService {
     }
 
     public boolean hasCyclicGroup(List<Group> groups) {
-        return false;
+        unprocessed.addAll(groups);
+        inProcess.clear();
+        return groups.stream().anyMatch(
+          g -> unprocessed.contains(g) && hasCycle(g)
+        );
     }
 
     private boolean hasCycle(Group group) {
+        if (inProcess.contains(group)) {
+            return true;
+        }
+        if (unprocessed.contains(group)) {
+            inProcess.add(group); // set to inprocess
+            unprocessed.remove(group);
+            for (Group cg : group.getChildGroups()) {
+                if (hasCycle(cg)) {
+                    return true;
+                }
+            }
+            inProcess.remove(group);
+        }
         return false;
     }
 
