@@ -17,12 +17,7 @@ public class GroupService {
     }
 
     public void addUserToGroup(User user, Group group) {
-        try {
-            Thread.sleep(3000);
-            group.addUser(user);
-        } catch (InterruptedException ex) {
-            // do nothing
-        }
+        group.addUser(user);
     }
 
     public void deleteUserFromGroup(User user, Group group) {

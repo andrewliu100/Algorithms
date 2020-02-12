@@ -22,11 +22,16 @@ public class Group {
         childGroups.add(group);
     }
 
-    public void addUser(User user) {
+    public synchronized void addUser(User user) {
         this.users.add(user);
     }
 
-    public void deleteUser(User userToDelete) {
+    public synchronized void deleteUser(User userToDelete) {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            // handle exception
+        }
         this.users.remove(userToDelete);
     }
 

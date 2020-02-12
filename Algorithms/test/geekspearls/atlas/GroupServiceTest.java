@@ -75,18 +75,19 @@ public class GroupServiceTest {
         // given
         Group testGroup = new Group(1);
         User testUser = new User(1);
+        groupService.addUserToGroup(testUser, testGroup);
 
         // when
         Thread addThread = new Thread(() -> groupService.addUserToGroup(testUser, testGroup));
         Thread deleteThread = new Thread(() -> groupService.deleteUserFromGroup(testUser, testGroup));
-        addThread.start();
         deleteThread.start();
+        addThread.start();
 
         addThread.join();
         deleteThread.join();
 
         // then
-        Assert.assertEquals(testGroup.getUserCount(), 0);
+        Assert.assertEquals(testGroup.getUserCount(), 1);
     }
 
     @Test
