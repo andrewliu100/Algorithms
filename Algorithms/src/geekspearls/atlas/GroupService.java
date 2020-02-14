@@ -1,27 +1,32 @@
 package geekspearls.atlas;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupService {
 
     private List<Group> unprocessed = new ArrayList<>();
     private List<Group> inProcess = new ArrayList<>();
 
-    public Group createGroup(Integer groupId) {
-        return new Group(groupId);
+    private Set<Group> groups = new HashSet<>();
+
+    private MembershipService membershipService;
+
+    public GroupService() {
+        membershipService = Services.createMembershipService();
     }
 
-    public void addGroupToGroup(Group parent, Group child) {
-        parent.addGroup(child);
+    public void create(Group group) {
+        groups.add(group);
     }
 
-    public void addUserToGroup(User user, Group group) {
-        group.addUser(user);
-    }
-
-    public void deleteUserFromGroup(User user, Group group) {
-        group.deleteUser(user);
+    public void remove(Group group) {
+        groups.remove(group);
+        // Q2 bug
+        // removing group doesn't clear users set
+        // fix is membershipService.getUsers(group).clear();
     }
 
     public boolean hasCyclicGroup(List<Group> groups) {
@@ -39,7 +44,7 @@ public class GroupService {
         if (unprocessed.contains(group)) {
             inProcess.add(group); // set to inprocess
             unprocessed.remove(group);
-            for (Group cg : group.getChildGroups()) {
+            for (Group cg : membershipService.getChildGroups(group)) {
                 if (hasCycle(cg)) {
                     return true;
                 }

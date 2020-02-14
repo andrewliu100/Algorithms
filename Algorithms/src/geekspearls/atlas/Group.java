@@ -1,48 +1,19 @@
 package geekspearls.atlas;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 public class Group {
 
-    private Integer groupId;
+    private String name;
 
-    private Set<User> users;
+    private Object deleteLock = new Object();
 
-    private Set<Group> childGroups;
-
-    public Group(Integer groupId) {
-        this.groupId = groupId;
-        this.users = new HashSet<>();
-        this.childGroups = new HashSet<>();
+    public Group(String name) {
+        this.name = name;
     }
 
-    public void addGroup(Group group) {
-        childGroups.add(group);
-    }
-
-    public synchronized void addUser(User user) {
-        this.users.add(user);
-    }
-
-    public synchronized void deleteUser(User userToDelete) {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-            // handle exception
-        }
-        this.users.remove(userToDelete);
-    }
-
-    public int getUserCount() {
-        return users.size();
-    }
-
-    public Set<Group> getChildGroups() {
-        return childGroups;
-    }
-
+    // Atlassian's code doesn't have equals() and hashCode(). The 3rd question is to fix a bug of adding equals() and
+    // hashCode()
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -50,11 +21,11 @@ public class Group {
         if (o == null || getClass() != o.getClass())
             return false;
         Group group = (Group) o;
-        return groupId.equals(group.groupId) ;
+        return name.equals(group.name) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(groupId);
+        return Objects.hash(name);
     }
 }
