@@ -1,6 +1,7 @@
 package geekspearls.tree;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -11,6 +12,24 @@ import java.util.Queue;
 public class BST {
 
     protected Node root;
+
+    /**
+     * Create a BST from a list of unsorted values
+     *
+     * @param array unsorted values
+     * @return The root of the BST
+     */
+    public Node create(List<Integer> array) {
+        if (array == null || array.isEmpty()) {
+            return null;
+        }
+        Node root = new Node(array.get(0));
+        for (int i = 1; i < array.size(); i++) {
+            insert(root, array.get(i));
+        }
+        this.root = root;
+        return root;
+    }
 
     /**
      * Find the node of the given value.
@@ -87,6 +106,11 @@ public class BST {
         int large = a > b ? a : b;
 
         if (small <= n.value && large >= n.value) {
+            int distFromLcaToSmall = level(n, small);
+            int distFromLcaToLarge = level(n, large);
+            if (distFromLcaToSmall == -1 || distFromLcaToLarge == -1) {
+                return -1;
+            }
             return level(n, small) + level(n, large);
         } else if (large < n.value) { // both are smaller than n.value
             return distance(n.left, a, b);
@@ -95,9 +119,27 @@ public class BST {
         }
     }
 
+    /**
+     * Find the lowest common ancestor of the given two values
+     */
+    public Node lca(Node n, int a, int b) {
+        if (n == null || find(a) == null || find(b) == null) {
+            return null;
+        }
+        int small = a > b ? b : a;
+        int large = a > b ? a : b;
+        if (small <= n.value && n.value <= large) {
+            return n;
+        } else if (large < n.value) {
+            return lca(n.left, a, b);
+        } else {
+            return lca(n.right, a, b);
+        }
+    }
+
     private int level(Node n, int x) {
         if (n == null) {
-            throw new IllegalArgumentException(x + " is not found in the BST");
+            return -1;
         }
         if (n.value == x) {
             return 0;
