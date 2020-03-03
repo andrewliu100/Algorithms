@@ -1,6 +1,7 @@
 package geekspearls.amz;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,6 +26,51 @@ public class CriticalRouters {
     static class Edge {
         int src;
         int dest;
+
+        Edge(int src, int dest) {
+            this.src = src;
+            this.dest = dest;
+        }
+    }
+
+    static class Graph {
+        int vertices;
+        LinkedList<Integer> edges[];
+
+        Graph(int vertices) {
+            this.vertices = vertices;
+            edges = new LinkedList[vertices];
+            for (int i = 0; i < vertices; i++) {
+                edges[i] = new LinkedList<>();
+            }
+        }
+
+        void addEdge(int src, int dest) {
+            edges[src].addFirst(dest);
+            edges[dest].add(src);
+        }
+
+        boolean isConnectedExcludeVertex(int exclude) {
+            List<Integer> visited = new ArrayList<>();
+            int start = 0;
+            for (int i = 0; i < vertices; i++) {
+                if (i != exclude) {
+                    start = i;
+                    break;
+                }
+            }
+            dfs(start, visited);
+            return visited.size() == vertices - 1;
+        }
+
+        void dfs(int start, List<Integer> visited) {
+            visited.add(start);
+            for (Integer dest : edges[start]) {
+                if (!visited.contains(dest)) {
+                    dfs(dest, visited);
+                }
+            }
+        }
     }
 
     /**
@@ -39,26 +85,36 @@ public class CriticalRouters {
      *
      * This method is brute force
      */
-    public List<Integer> findArticulationVertices(int numNodes, int numEdges, List<Edge> edges) {
+    public static List<Integer> findArticulationVertices(int numNodes, int numEdges, List<Edge> edges) {
         List<Integer> articulationPoints = new ArrayList<>();
 
-        List<Integer> verticesRemains = new ArrayList<>();
         for (int i = 0; i < numNodes; i++) {
-            verticesRemains.add(i);
-        }
-
-        for (int i = 0; i < numNodes; i++) {
-            List<Edge> edgesRemains = new ArrayList<>();
+            Graph graph = new Graph(numNodes);
             for (Edge e : edges) {
                 if (e.src != i && e.dest != i) {
-                    edgesRemains.add(e);
+                    graph.addEdge(e.src, e.dest);
                 }
             }
-            verticesRemains.remove(i);
 
+            if (!graph.isConnectedExcludeVertex(i)) {
+                articulationPoints.add(i);
+            }
         }
 
         return articulationPoints;
+    }
+
+    public static void main(String[] args) {
+        List<Edge> edges = new ArrayList<>();
+        edges.add(new Edge(0, 1));
+        edges.add(new Edge(0, 2));
+        edges.add(new Edge(1, 3));
+        edges.add(new Edge(2, 3));
+        edges.add(new Edge(2, 5));
+        edges.add(new Edge(5, 6));
+        edges.add(new Edge(3, 4));
+        List<Integer> articulationPoints = findArticulationVertices(7, 7, edges);
+        System.out.println(articulationPoints);
     }
 
 }
