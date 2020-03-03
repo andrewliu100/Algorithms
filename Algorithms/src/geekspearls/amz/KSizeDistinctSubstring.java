@@ -18,9 +18,23 @@ public class KSizeDistinctSubstring {
         Set<String> distincts = new HashSet<>();
 
         for (int i = 0; i + k <= str.length(); i++) {
-            distincts.add(str.substring(i, i + k));
+            String substr = str.substring(i, i + k);
+            if (isDistinctChars(substr)) {
+                distincts.add(substr);
+            }
         }
 
         return distincts;
+    }
+
+    private boolean isDistinctChars(String str) {
+        Set<Character> characters = new HashSet<>();
+        for (int i = 0; i < str.length(); i++) {
+            Character ch = str.charAt(i);
+            if (!characters.add(ch)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
