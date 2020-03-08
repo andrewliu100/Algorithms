@@ -14,35 +14,21 @@ import java.util.stream.IntStream;
  *
  * Each day, whether the cell is occupied or vacant changes according to the following rules:
  *
- * If a cell has two adjacent neighbors that are both occupied or both vacant, then the cell becomes occupied.
- * Otherwise, it becomes vacant.
- * (Note that because the prison is a row, the first and the last cells in the row can't have two adjacent neighbors.)
+ * If a cell has two adjacent neighbors that are both occupied or both vacant, then the cell becomes vacant(0).
+ * Otherwise, it becomes occupied (1).
+ * (Note that because the prison is a row, the first and the last cells in the row can't have two adjacent neighbors.
+ *  Assume the opposite non-existing cells are vacant (0).
+ *  e.g. [0,1,0,1,1,0,0,1] => 0,[0,1,0,1,1,0,0,1],0
+ * )
  *
  * We describe the current state of the prison in the following way: cells[i] == 1 if the i-th cell is occupied, else cells[i] == 0.
  *
  * Given the initial state of the prison, return the state of the prison after N days (and N such changes described above.)
  *
- *
- *
- * Example 1:
- *
- * Input: cells = [0,1,0,1,1,0,0,1], N = 7
- * Output: [0,0,1,1,0,0,0,0]
- * Explanation:
- * The following table summarizes the state of the prison on each day:
- * Day 0: [0, 1, 0, 1, 1, 0, 0, 1]
- * Day 1: [0, 1, 1, 0, 0, 0, 0, 0]
- * Day 2: [0, 0, 0, 0, 1, 1, 1, 0]
- * Day 3: [0, 1, 1, 0, 0, 1, 0, 0]
- * Day 4: [0, 0, 0, 0, 0, 1, 0, 0]
- * Day 5: [0, 1, 1, 1, 0, 1, 0, 0]
- * Day 6: [0, 0, 1, 0, 1, 1, 0, 0]
- * Day 7: [0, 0, 1, 1, 0, 0, 0, 0]
- *
  * Example 2:
  *
- * Input: cells = [1,0,0,1,0,0,1,0], N = 1000000000
- * Output: [0,0,1,1,1,1,1,0]
+ * Input: cells = [1,1,1,0,1,1,1,1], N = 2
+ * Output: [0, 0, 0, 0, 0, 1, 1, 0]
  *
  *
  * Note:
@@ -85,10 +71,23 @@ public class PrisonCellsAfterNDays {
 
     private int nextDay(int state, int numOfBits) {
         int ans = 0;
-        // no need for the first and last bits, because they have only one neighbor
-        for (int i = 1; i < numOfBits - 1; i++) {
-            if ((state >> (i - 1) & 1) == (state >> (i + 1) & 1)) {
-                ans ^= (1 << i);
+        for (int i = 0; i < numOfBits; i++) {
+            // first bit
+            if (i == 0) {
+                if ((state >> 1 & 1) == 1) {
+                    ans ^= (1 << i);
+                }
+            }
+            // last bit
+            else if (i == numOfBits - 1) {
+                if ((state >> (i - 1) & 1) == 1) {
+                    ans ^= (1 << i);
+                }
+            } else {
+                //middle bits
+                if ((state >> (i - 1) & 1) != (state >> (i + 1) & 1)) {
+                    ans ^= (1 << i);
+                }
             }
         }
         return ans;
@@ -114,7 +113,7 @@ public class PrisonCellsAfterNDays {
 
     public static void main(String[] args) {
         PrisonCellsAfterNDays p = new PrisonCellsAfterNDays();
-        System.out.println(IntStream.of(p.prisonAfterDays(new int[]{0,1,0,1,1,0,0,1}, 7)).boxed().collect(Collectors.toList()));
-        System.out.println(IntStream.of(p.prisonAfterDays(new int[]{1,0,0,1,0,0,1,0}, 1000000000)).boxed().collect(Collectors.toList()));
+        System.out.println(IntStream.of(p.prisonAfterDays(new int[]{1,1,1,0,1,1,1,1}, 2)).boxed().collect(Collectors.toList()));
+//        System.out.println(IntStream.of(p.prisonAfterDays(new int[]{1,0,0,1,0,0,1,0}, 1000000000)).boxed().collect(Collectors.toList()));
     }
 }
