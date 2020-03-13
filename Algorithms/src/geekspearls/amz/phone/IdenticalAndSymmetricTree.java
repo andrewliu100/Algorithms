@@ -11,4 +11,38 @@ package geekspearls.amz.phone;
  * Questions 2 and 3 were based on the Person class written on (1).
  */
 public class IdenticalAndSymmetricTree {
+
+    class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+    }
+
+    public boolean isIdentical(TreeNode tree1, TreeNode tree2) {
+        if (tree1 == null && tree2 == null) {
+            return true;
+        }
+        if (tree1 == null || tree2 == null) {
+            return false;
+        }
+        return tree1.val == tree2.val &&
+                        isIdentical(tree1.left, tree2.left) &&
+                        isIdentical(tree1.right, tree2.right);
+    }
+
+    public boolean isSymmetric(TreeNode tree1, TreeNode tree2) {
+        if (tree1 == null && tree2 == null) {
+            return true;
+        }
+        if (tree1 == null || tree2 == null) {
+            return false;
+        }
+        return tree1.val == tree2.val &&
+                        isSymmetric(tree1.left, tree2.right) &&
+                        isSymmetric(tree1.right, tree2.left);
+    }
 }

@@ -1,5 +1,11 @@
 package geekspearls.amz.phone;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Position: SDE2, AWS
  * Location: Vancouver, Canada
@@ -16,4 +22,19 @@ package geekspearls.amz.phone;
  */
 public class TwoSum {
 
+    public static List<Integer> twoSum(List<Integer> nums, int target) {
+        Map<Integer, Integer> numToIdx = new HashMap<>();
+        for (int i = 0; i < nums.size(); i++) {
+            int complement = target - nums.get(i);
+            if (numToIdx.containsKey(complement)) {
+                return Arrays.asList(numToIdx.get(complement), i);
+            }
+            numToIdx.put(nums.get(i), i);
+        }
+        return new ArrayList<>();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(twoSum(Arrays.asList(7, 2, 1, 8), 9));
+    }
 }
