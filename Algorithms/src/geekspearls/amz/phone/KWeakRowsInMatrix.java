@@ -32,41 +32,54 @@ public class KWeakRowsInMatrix {
                         {1, 1, 0, 0, 0, 0},
                         {1, 1, 0, 0, 0, 0}
         };
-        System.out.println(getWeakRows(matrix, k));
+        System.out.println(findWeakRows(matrix, k));
 
+    }
+
+    static class Row implements Comparable<Row> {
+        int[] values;
+        int rowIdx;
+
+        Row(int[] values, int rowIdx) {
+            this.values = values;
+            this.rowIdx = rowIdx;
+        }
+
+        /**
+         * O(logn)
+         */
+        int numOf1s() {
+            int low = 0;
+            int high = values.length - 1;
+            while (low < high) {
+                int mid = low + (high - low) / 2;
+                if (values[mid] == 1) {
+                    low = mid + 1;
+                } else if (values[mid] == 0) {
+                    high = mid - 1;
+                }
+            }
+            return low;
+        }
+
+        public int compareTo(Row that) {
+            return Integer.compare(this.numOf1s(), that.numOf1s());
+        }
     }
 
     /**
      * O(mlogn)
      */
-    private static List<Integer> getWeakRows(int[][] matrix, int k) {
-        Queue<int[]> minHeap = new PriorityQueue<>((a, b)->a[1] - b[1]);
-        for(int i=0;i<matrix.length;i++) {
-            int[] row = matrix[i];
-            int num = getNumOf1(row);
-            minHeap.offer(new int[] {i, num}); // O(logn)
+    public static List<Integer> findWeakRows(int[][] matrix, int k) {
+        PriorityQueue<Row> minHeap = new PriorityQueue<>();
+        for (int i = 0; i < matrix.length; i++) {
+            minHeap.add(new Row(matrix[i], i));
         }
-        List<Integer> res = new ArrayList<>();
-        while(k > 0 && !minHeap.isEmpty()) {
-            res.add(minHeap.poll()[0]);
-            k--;
-        }
-        return res;
-    }
 
-    /**
-     * O(logn)
-     */
-    private static int getNumOf1(int[] row) {
-        int l = 0, r = row.length-1;
-        while(l < r) {
-            int m = l + (r - l)/2;
-            if(row[m] == 0) {
-                r = m;
-            }else {
-                l = m+1;
-            }
+        List<Integer> weakRows = new ArrayList<>();
+        while (weakRows.size() < k && !minHeap.isEmpty()) {
+            weakRows.add(minHeap.poll().rowIdx);
         }
-        return l;
+        return weakRows;
     }
 }

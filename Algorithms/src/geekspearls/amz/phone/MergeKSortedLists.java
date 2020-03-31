@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 /**
- * Virtual interview question: Given a linkedlist where horizontal and vertical elements are sorted. Sort them into a single linear linked list
+ * Virtual interview question:
+ * Given a linkedlist where horizontal and vertical elements are sorted.
+ * Sort them into a single linear linked list
  *
  * 2 10 17 23 25...
  * |  |  |  |  |....

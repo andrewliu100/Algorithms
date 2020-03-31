@@ -37,10 +37,12 @@ public class FirstUniqueStream {
     private void deleteNode(DLinkedNode node) {
         DLinkedNode pre = node.pre;
         DLinkedNode next = node.next;
-        pre.next = next;
-        next.pre = pre;
-        node.pre = null;
-        node.next = null;
+        if (pre != null && next != null) {
+            pre.next = next;
+            next.pre = pre;
+            node.pre = null;
+            node.next = null;
+        }
     }
 
     private void addToTail(DLinkedNode node) {

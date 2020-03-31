@@ -1,5 +1,7 @@
 package geekspearls.amz.phone;
 
+import java.util.PriorityQueue;
+
 /**
  * Given a string with lowercase, uppercase and numbers, rearrange it so that uppercase letters are first,
  * then lowercase and then numbers. It should maintain the original order.
@@ -46,10 +48,65 @@ public class WordRearrange {
         array[i] = array[j];
         array[j] = temp;
     }
+/////////////////////////////////////////////////////////////////
+
+    class CharWithIdx implements Comparable<CharWithIdx> {
+        char ch;
+        int idx;
+
+        CharWithIdx(char ch, int idx) {
+            this.ch = ch;
+            this.idx = idx;
+        }
+
+        public int compareTo(CharWithIdx that) {
+            if (Character.isUpperCase(this.ch)) {
+                if (!Character.isUpperCase(that.ch)) {
+                    return -1;
+                } else {
+                    return Integer.compare(this.idx, that.idx);
+                }
+            } else if (Character.isLowerCase(this.ch)) {
+                if (Character.isDigit(that.ch)) {
+                    return -1;
+                } else if (Character.isUpperCase(that.ch)) {
+                    return 1;
+                } else {
+                    return Integer.compare(this.idx, that.idx);
+                }
+            } else if (Character.isDigit(this.ch)) {
+                if (!Character.isDigit(that.ch)) {
+                    return 1;
+                } else {
+                    return Integer.compare(this.idx, that.idx);
+                }
+            }
+            return Integer.compare(this.idx, that.idx);
+        }
+    }
+
+    public String rearrange(String str) {
+        PriorityQueue<CharWithIdx> heap = new PriorityQueue<>();
+        char[] array = str.toCharArray();
+        for (int i = 0; i < array.length; i++) {
+            heap.add(new CharWithIdx(array[i], i));
+        }
+        StringBuilder sb = new StringBuilder();
+        while (!heap.isEmpty()) {
+            sb.append(heap.poll().ch);
+        }
+        return sb.toString();
+    }
+
+
 
     public static void main(String[] args) {
         System.out.println(new WordRearrange().rearrangeWord("cdBnC52c"));
         System.out.println(new WordRearrange().rearrangeWord("123abA"));
         System.out.println(new WordRearrange().rearrangeWord("cDBnC52c"));
+
+        System.out.println(new WordRearrange().rearrange("cdBnC52c"));
+        System.out.println(new WordRearrange().rearrange("123abA"));
+        System.out.println(new WordRearrange().rearrange("cDBnC52c"));
     }
 }

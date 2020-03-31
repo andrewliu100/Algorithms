@@ -15,7 +15,7 @@ public class InOrderSuccessorInBST {
     public TreeNode inorderSuccessor(TreeNode root, TreeNode node) {
         // If node has a right subtree, the successor is left most node in the right subtree
         if (node.right != null) {
-            TreeNode iter = node;
+            TreeNode iter = node.right;
             while (iter != null) {
                 iter = iter.left;
             }

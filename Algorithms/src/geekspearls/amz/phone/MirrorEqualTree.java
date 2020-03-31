@@ -6,7 +6,8 @@ import java.util.List;
 /**
  * Position: SDE Intern
  *
- * Given two binary trees, they are said to be mirror equal to each other iff view of their leaves are mirrored image of each other.
+ * Given two binary trees, they are said to be mirror equal to each other iff view of their leaves are mirrored image
+ * of each other.
  *
  * SOLUTION
  *
