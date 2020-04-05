@@ -1,9 +1,8 @@
-package geekspearls.amz.phone;
+package geekspearls.amz.coding;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 /**
  * There are soldiers and civilians arranged in N x M matrix way, find out the 'K' weak rows in the matrix.

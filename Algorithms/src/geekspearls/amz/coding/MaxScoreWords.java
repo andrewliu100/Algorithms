@@ -1,4 +1,4 @@
-package geekspearls.amz.phone;
+package geekspearls.amz.coding;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,15 +78,15 @@ public class MaxScoreWords {
                 wordScore += scores.getOrDefault(ch, 0);
                 counts.put(ch, --count);
             }
-            System.out.println("index: " + index + " loop: " + i + " word: " + words[i] + " score: " + wordScore);
+//            System.out.println("index: " + index + " loop: " + i + " word: " + words[i] + " score: " + wordScore);
             if (wordScore != 0) {
                 res.words.add(words[i]);
-                System.out.println("index: " + index + " loop: " + i + " words: " + res.words);
+//                System.out.println("index: " + index + " loop: " + i + " words: " + res.words);
                 Result subResult = findMaxScoreWords(words, i + 1, counts, scores);
-                System.out.println("index: " + index + " loop: " + i + " word: " + words[i] + " subResult: " + subResult);
+//                System.out.println("index: " + index + " loop: " + i + " word: " + words[i] + " subResult: " + subResult);
                 wordScore += subResult.maxScore;
                 if (wordScore > res.maxScore) {
-                    System.out.println("index: " + index + " loop: " + i + " wordScore: " + wordScore);
+//                    System.out.println("index: " + index + " loop: " + i + " wordScore: " + wordScore);
                     res.maxScore = wordScore;
                 }
             }

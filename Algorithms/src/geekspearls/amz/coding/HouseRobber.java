@@ -1,4 +1,4 @@
-package geekspearls.amz.phone;
+package geekspearls.amz.coding;
 
 /**
  * You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed,

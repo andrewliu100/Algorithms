@@ -1,4 +1,4 @@
-package geekspearls.amz.phone;
+package geekspearls.amz.coding;
 
 /**
  * Reverse a singly linked list.

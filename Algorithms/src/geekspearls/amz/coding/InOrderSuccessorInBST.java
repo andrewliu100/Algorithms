@@ -1,4 +1,4 @@
-package geekspearls.amz.phone;
+package geekspearls.amz.coding;
 
 public class InOrderSuccessorInBST {
 

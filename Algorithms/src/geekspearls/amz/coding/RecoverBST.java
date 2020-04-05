@@ -1,4 +1,4 @@
-package geekspearls.amz.phone;
+package geekspearls.amz.coding;
 
 /**
  * Two elements of a binary search tree (BST) are swapped by mistake.

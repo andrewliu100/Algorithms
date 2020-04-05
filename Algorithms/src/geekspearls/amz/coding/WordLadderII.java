@@ -1,4 +1,4 @@
-package geekspearls.amz.phone;
+package geekspearls.amz.coding;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

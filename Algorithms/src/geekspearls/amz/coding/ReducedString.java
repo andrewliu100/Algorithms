@@ -1,4 +1,4 @@
-package geekspearls.amz.phone;
+package geekspearls.amz.coding;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

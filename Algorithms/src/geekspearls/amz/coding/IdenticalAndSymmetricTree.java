@@ -1,7 +1,7 @@
-package geekspearls.amz.phone;
+package geekspearls.amz.coding;
 
 /**
- * Got an phone interview @ amazon for SDE2 role at Amazon for Business team, Austin.
+ * Got an coding interview @ amazon for SDE2 role at Amazon for Business team, Austin.
  *
  * I got asked to:
  *

@@ -1,4 +1,4 @@
-package geekspearls.amz.phone;
+package geekspearls.amz.coding;
 
 /**
  * Status: Employed, 6+ YOE
@@ -6,7 +6,7 @@ package geekspearls.amz.phone;
  * Location: Denver, CO
  * Date: February 3, 2020
  *
- * I wanted to let everyone know that you can't assume you will always get a question from leetcode. I just had a phone screen with Amazon AWS and here was my question:
+ * I wanted to let everyone know that you can't assume you will always get a question from leetcode. I just had a coding screen with Amazon AWS and here was my question:
  *
  * You have a class with two methods that calculate factorials.
  *
